@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>X-KGRank — Jainish Patel</title>
+<link rel="stylesheet" href="../project.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>.metric-grid.results{grid-template-columns:repeat(4,1fr)}@media(max-width:700px){.metric-grid.results{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a class="mark" href="../index.html">JP / 26</a><a class="back" href="../index.html#research">← Back to research</a></nav>
+<header class="hero">
+<div class="eyebrow">Paper · Graph RAG · Explainable recommendation</div>
+<h1>Can recommendations be useful, personal, and explainable?</h1>
+<p class="lede">X-KGRank combines graph-based recommendation with grounded language-model explanations, using user-item relationships as evidence instead of asking an LLM to explain from memory.</p>
+<div class="actions"><a class="button primary" href="../X-KGRank.pdf" target="_blank">Read the paper ↗</a><a class="button" href="https://arxiv.org/abs/2608.01732" target="_blank" rel="noreferrer">View on arXiv ↗</a></div>
+</header>
+<section class="section">
+<h2>The problem in one minute</h2>
+<p>A recommendation can be accurate but impossible to trust if the user cannot see why it was chosen. A language model can produce a fluent explanation but invent facts or ignore the user’s actual history. X-KGRank keeps the ranking model and uses a knowledge graph to provide evidence for the explanation.</p>
+<div class="visual"><div class="node"><small>User history</small><strong>Ratings and co-rated items</strong><small>Behavioral evidence</small></div><div class="arrow">→</div><div class="node"><small>Knowledge graph</small><strong>Paths through users, movies, and genres</strong><small>Retrieve supporting context</small></div><div class="arrow">→</div><div class="node"><small>Explanation</small><strong>Grounded natural language</strong><small>Explain why the item fits</small></div></div>
+</section>
+<section class="section">
+<h2>How the system works</h2>
+<p>The pipeline trains a LightGCN ranker with SBERT-initialized movie representations, mines graph structure with node2vec and community detection, and retrieves candidate-specific paths for long-tail items. Popular items use a cheaper route; less-popular items receive graph-grounded context.</p>
+<div class="compare"><div class="plain"><h3>Ranking</h3><p>LightGCN scores candidates from user–movie interactions and content-aware item representations.</p><span class="tag">LightGCN</span><span class="tag">SBERT</span><span class="tag">BPR</span></div><div class="plain"><h3>Explanation</h3><p>An LLM receives retrieved graph evidence and turns it into a user-facing explanation.</p><span class="tag">Neo4j</span><span class="tag">NetworkX</span><span class="tag">LLM</span></div></div>
+</section>
+<section class="section">
+<h2>Measured result</h2>
+<p>On MovieLens-1M under a 99-sample evaluation protocol, X-KGRank improved ranking quality over a strong popularity baseline. The graph contains 9,762 nodes and 999,264 edges, while popularity-selective routing limits expensive graph retrieval to 1,855 long-tail items—roughly half the catalog.</p>
+<div class="metric-grid results"><div class="metric"><b>0.2956</b><span>NDCG@10</span></div><div class="metric"><b>+17.1%</b><span>NDCG@10 vs. popularity</span></div><div class="metric"><b>0.5371</b><span>Recall@10</span></div><div class="metric"><b>999,264</b><span>knowledge-graph edges</span></div></div>
+<p><strong>Additional findings:</strong> NDCG@20 improved by 15.6% and MRR by 14.6%. In a 16-case explanation comparison, Qwen2.5-1.5B reached a heuristic quality score of 0.97 versus 0.94 for Mistral-7B, but qualitative review found that the smaller model was more prone to factual fabrication.</p>
+</section>
+<section class="section">
+<h2>Why the result matters</h2>
+<p>The key idea is selective grounding. Not every recommendation needs an expensive graph lookup. Popular items may already be familiar to a language model, while long-tail items benefit more from explicit behavioral evidence. This keeps the explanation layer grounded without applying the full retrieval cost to every candidate.</p>
+<div class="metric-grid"><div class="metric"><b>6,040</b><span>users in MovieLens-1M</span></div><div class="metric"><b>3,704</b><span>movies represented</span></div><div class="metric"><b>~50%</b><span>fewer KG-augmented generations</span></div></div>
+</section>
+<section class="section"><h2>Limitations</h2><p>The explanation-quality score is a heuristic proxy rather than a human factuality judgment. The study also uses a sampled 99-negative evaluation protocol and a small 16-case LLM explanation comparison, so the ranking results are stronger evidence than the explanation-quality comparison.</p></section>
+<footer class="footer"><span>Jainish Patel · AI / ML research</span><span><a href="../index.html">Portfolio home</a></span></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PA-D2iT — Jainish Patel</title>
+<link rel="stylesheet" href="../project.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>.metric-grid.results{grid-template-columns:repeat(4,1fr)}@media(max-width:700px){.metric-grid.results{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a class="mark" href="../index.html">JP / 26</a><a class="back" href="../index.html#research">← Back to research</a></nav>
+<header class="hero">
+<div class="eyebrow">Paper · Autonomous driving · Diffusion models</div>
+<h1>Should a scene generator focus on what matters for safety?</h1>
+<p class="lede">PA-D2iT studies whether a diffusion model should allocate its limited compute using scene meaning—such as pedestrians and cyclists—instead of visual texture.</p>
+<div class="actions"><a class="button primary" href="../PA-D2iT-report.pdf" target="_blank">Read the paper ↗</a><a class="button" href="mailto:jainish1p@gmail.com">Ask me about it</a></div>
+</header>
+<section class="section">
+<h2>The question in one minute</h2>
+<p>Diffusion models can generate rare driving situations for training autonomous systems. But they cannot spend equal detail on every part of every image. A textured road or tree may attract a pixel-based signal, while a low-contrast pedestrian may be the region that matters most.</p>
+<div class="visual"><div class="node"><small>Scene layout</small><strong>Where are the people, riders, and vehicles?</strong><small>Safety-relevant objects</small></div><div class="arrow">→</div><div class="node"><small>Allocation signal</small><strong>Importance vs. pixel entropy</strong><small>Choose the cells that receive capacity</small></div><div class="arrow">→</div><div class="node"><small>Fixed budget</small><strong>25% of latent cells</strong><small>Same token count and compute</small></div></div>
+</section>
+<section class="section">
+<h2>What changed</h2>
+<p>The importance map gives vulnerable road users a higher priority than vehicles and background regions. The comparison is controlled: every signal selects the same 25% budget, so the experiment changes where capacity goes—not how much compute is used.</p>
+<div class="compare"><div class="plain"><h3>Pixel entropy</h3><p>Prioritizes regions with high visual variation. This can favor foliage, cobblestones, or other textured background.</p><span class="tag">Image-driven</span><span class="tag">Texture-sensitive</span></div><div class="plain"><h3>Scene importance</h3><p>Prioritizes regions containing vulnerable road users and vehicles from the scene layout.</p><span class="tag">Layout-driven</span><span class="tag">Safety-oriented</span></div></div>
+</section>
+<section class="section">
+<h2>Measured result</h2>
+<p>On the Cityscapes validation set, importance-based allocation identified vulnerable-road-user regions substantially better than entropy. It captured 78.2% of true pedestrian cells, compared with 34.5% for entropy and 25% for random selection.</p>
+<div class="metric-grid results"><div class="metric"><b>0.541</b><span>importance F1</span></div><div class="metric"><b>0.425</b><span>importance precision</span></div><div class="metric"><b>0.755</b><span>importance recall</span></div><div class="metric"><b>78.2%</b><span>pedestrian cells captured</span></div></div>
+<p><strong>Interpretation:</strong> importance achieved roughly 2.2× the F1 of entropy (0.541 vs. 0.247) while keeping the compute budget fixed. The result is about better targeting, not more computation.</p>
+</section>
+<section class="section">
+<h2>What the paper also found</h2>
+<p>A pretrained Stable Diffusion 1.5 model with LoRA produced coherent layout-conditioned street scenes after 2,000–6,000 training steps. The from-scratch 7M-parameter SmallDiT was more appropriate for the available data than a 158.5M-parameter variant, which memorized instead of generalizing.</p>
+<div class="metric-grid"><div class="metric"><b>6,450</b><span>Cityscapes crops</span></div><div class="metric"><b>7.0M</b><span>SmallDiT parameters</span></div><div class="metric"><b>25%</b><span>fixed allocation budget</span></div></div>
+</section>
+<section class="section"><h2>Limitations</h2><p>The allocation study uses one dataset and one seed, and the current metric measures whether the allocator selects vulnerable-road-user cells—not whether a downstream detector or driving policy improves. The next stronger test is equal-frame-count training followed by small-pedestrian detection evaluation.</p></section>
+<footer class="footer"><span>Jainish Patel · AI / ML research</span><span><a href="../index.html">Portfolio home</a></span></footer>
+</div>
+</body>
+</html>
