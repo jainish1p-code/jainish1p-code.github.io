@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DriveLM Graph Reasoning — Jainish Patel</title>
+<link rel="stylesheet" href="../project.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>.metric-grid.results{grid-template-columns:repeat(4,1fr)}@media(max-width:700px){.metric-grid.results{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+<a class="mark" href="../index.html">JP / 26</a>
+<a class="back" href="../index.html#work">← Back to work</a>
+</nav>
+<header class="hero">
+<div class="eyebrow">Project 01 · Autonomous driving · Graph VQA</div>
+<h1>Can connected reasoning help a vehicle plan?</h1>
+<p class="lede">DriveLM Graph Reasoning studies whether a vision-language model makes better driving-planning decisions when it receives connected perception and prediction context—not only a single front-camera image.</p>
+<div class="actions">
+<a class="button primary" href="https://github.com/jainish1p-code/DriveLM-GraphReasoning" target="_blank" rel="noreferrer">View code on GitHub ↗</a>
+<a class="button" href="mailto:jainish1p@gmail.com">Ask me about it</a>
+</div>
+</header>
+<section class="section">
+<h2>The idea in one minute</h2>
+<p>A person can make a better driving decision when they know what objects are present, what those objects may do next, and how those facts are connected. This project tests whether the same principle helps a vision-language model answer planning questions.</p>
+<div class="visual">
+<div class="node">
+<small>Input</small>
+<strong>Front-camera scene</strong>
+<small>What does the vehicle see?</small>
+</div>
+<div class="arrow">→</div>
+<div class="node">
+<small>Reasoning context</small>
+<strong>Perception → prediction → planning graph</strong>
+<small>What is connected to what?</small>
+</div>
+<div class="arrow">→</div>
+<div class="node">
+<small>Output</small>
+<strong>Driving-planning answer</strong>
+<small>Stop, brake, maintain speed, or accelerate</small>
+</div>
+</div>
+</section>
+<section class="section">
+<h2>Experimental design</h2>
+<p>Three conditions separate the effect of graph context from the effect of the image itself.</p>
+<div class="compare">
+<div class="plain">
+<h3>Image only</h3>
+<p>The model receives the front image and planning question. This is the baseline.</p>
+<span class="tag">Front image</span>
+<span class="tag">Planning question</span>
+</div>
+<div class="plain">
+<h3>Graph-connected context</h3>
+<p>The model receives upstream perception and prediction answers linked to the planning question.</p>
+<span class="tag">Front image</span>
+<span class="tag">Perception</span>
+<span class="tag">Prediction</span>
+<span class="tag">Planning</span>
+</div>
+</div>
+</section>
+<section class="section">
+<h2>Measured result</h2>
+<p>On 3,673 validation planning records, adding gold graph-linked parent answers improved token F1 from 0.755 to 0.846 and ROUGE-L from 0.748 to 0.834. The largest gain came from braking decisions, where F1 increased from 0.258 to 0.701. This is an oracle-context result; predicted parent context is the next test.</p>
+<div class="metric-grid results">
+<div class="metric"><b>+0.092</b><span>token F1 improvement</span></div>
+<div class="metric"><b>+0.086</b><span>ROUGE-L improvement</span></div>
+<div class="metric"><b>+0.444</b><span>braking F1 improvement</span></div>
+<div class="metric"><b>3,673</b><span>validation records</span></div>
+</div>
+</section>
+<section class="section">
+<h2>What I built</h2>
+<p>The pilot uses DriveLM-CARLA question-answer data and corresponding PDM-Lite CARLA frames. I verified a 2,730-frame pilot with 2,098 training frames and 632 validation frames, then structured the evaluation around route-level splits.</p>
+<div class="metric-grid">
+<div class="metric">
+<b>2,730</b>
+<span>pilot frames</span>
+</div>
+<div class="metric">
+<b>3</b>
+<span>experimental conditions</span>
+</div>
+<div class="metric">
+<b>CARLA</b>
+<span>driving simulation environment</span>
+</div>
+</div>
+</section>
+<footer class="footer">
+<span>Jainish Patel · AI / ML research</span>
+<span>
+<a href="../index.html">Portfolio home</a>
+</span>
+</footer>
+</div>
+</body>
+</html>

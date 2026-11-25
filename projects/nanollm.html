@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>nanoLLM Experiments — Jainish Patel</title>
+<link rel="stylesheet" href="../project.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>.metric-grid.results{grid-template-columns:repeat(4,1fr)}@media(max-width:700px){.metric-grid.results{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+<a class="mark" href="../index.html">JP / 26</a>
+<a class="back" href="../index.html#work">← Back to work</a>
+</nav>
+<header class="hero">
+<div class="eyebrow">Project 04 · Language models · From scratch</div>
+<h1>Understanding language models by building the pieces.</h1>
+<p class="lede">nanoLLM is a set of experiments that makes language-model behavior concrete by comparing increasingly capable sequence models on the same task.</p>
+<div class="actions">
+<a class="button primary" href="https://github.com/jainish1p-code/nanoLLM" target="_blank" rel="noreferrer">View code and report ↗</a>
+</div>
+</header>
+<section class="section">
+<h2>The learning path</h2>
+<p>The project moves from simple recurrent models to Transformers, making it easier to see what changes when memory, context, and attention improve.</p>
+<div class="visual">
+<div class="node">
+<small>Sequence models</small>
+<strong>RNN → GRU → LSTM</strong>
+<small>Learn how recurrent memory evolves</small>
+</div>
+<div class="arrow">→</div>
+<div class="node">
+<small>Attention</small>
+<strong>Transformer</strong>
+<small>Compare context and attention heads</small>
+</div>
+<div class="arrow">→</div>
+<div class="node">
+<small>Evaluation</small>
+<strong>Metrics, sweeps, and figures</strong>
+<small>Turn model behavior into evidence</small>
+</div>
+</div>
+</section>
+<section class="section">
+<h2>What I investigated</h2>
+<div class="compare">
+<div class="plain">
+<h3>Model behavior</h3>
+<p>How do RNN, GRU, LSTM, and Transformer architectures compare when trained under a consistent experimental setup?</p>
+</div>
+<div class="plain">
+<h3>Context and attention</h3>
+<p>How do context length and the number of attention heads affect language-model performance?</p>
+</div>
+</div>
+<div class="metric-grid">
+<div class="metric">
+<b>4</b>
+<span>model families compared</span>
+</div>
+<div class="metric">
+<b>from scratch</b>
+<span>training and analysis</span>
+</div>
+<div class="metric">
+<b>Tiny Shakespeare</b>
+<span>experimental dataset</span>
+</div>
+</div>
+</section>
+<section class="section">
+<h2>Measured result</h2>
+<p>On Tiny Shakespeare, the modern Transformer achieved the lowest validation bits per byte at 2.1052, compared with 2.4384 for the vanilla RNN. GRU and LSTM narrowed most of the gap, while the larger LSTM underperformed the smaller one despite using roughly four times as many parameters.</p>
+<div class="metric-grid results">
+<div class="metric"><b>2.1052</b><span>modern Transformer bpb</span></div>
+<div class="metric"><b>2.4384</b><span>vanilla RNN bpb</span></div>
+<div class="metric"><b>−13.7%</b><span>Transformer bpb vs RNN</span></div>
+<div class="metric"><b>256 chars</b><span>best Transformer context</span></div>
+</div>
+</section>
+<section class="section">
+<h2>Technical focus</h2>
+<p>Tokenization, sequence modeling, recurrent networks, self-attention, Transformer architecture, validation metrics, experiment sweeps, and reproducible analysis.</p>
+</section>
+<footer class="footer">
+<span>Jainish Patel · AI / ML research</span>
+<span>
+<a href="../index.html">Portfolio home</a>
+</span>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Object Detection Benchmark — Jainish Patel</title>
+<link rel="stylesheet" href="../project.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>.metric-grid.results{grid-template-columns:repeat(4,1fr)}@media(max-width:700px){.metric-grid.results{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+<a class="mark" href="../index.html">JP / 26</a>
+<a class="back" href="../index.html#work">← Back to work</a>
+</nav>
+<header class="hero">
+<div class="eyebrow">Project 03 · Computer vision · Evaluation</div>
+<h1>What happens when detectors leave their home dataset?</h1>
+<p class="lede">This benchmark compares three object-detection families on COCO and KITTI to study cross-dataset generalization and the speed–accuracy tradeoff in driving scenes.</p>
+<div class="actions">
+<a class="button primary" href="https://github.com/jainish1p-code/object-detection-benchmark" target="_blank" rel="noreferrer">View code and report ↗</a>
+</div>
+</header>
+<section class="section">
+<h2>The comparison</h2>
+<p>Rather than asking which model is universally best, the benchmark asks how accuracy and speed change when the same detectors face a different visual world and a matched vehicle/person taxonomy.</p>
+<div class="visual">
+<div class="node">
+<small>Models</small>
+<strong>Faster R-CNN · YOLO11s · DETR</strong>
+<small>Three detector families</small>
+</div>
+<div class="arrow">→</div>
+<div class="node">
+<small>Datasets</small>
+<strong>COCO → KITTI</strong>
+<small>Native and matched evaluations</small>
+</div>
+<div class="arrow">→</div>
+<div class="node">
+<small>Analysis</small>
+<strong>AP, FPS, memory, failure modes</strong>
+<small>Accuracy is only one part of the story</small>
+</div>
+</div>
+</section>
+<section class="section">
+<h2>What the results show</h2>
+<p>Faster R-CNN led the shared vehicle/person evaluation with AP 0.5731 on COCO and 0.3962 on KITTI. YOLO11s reached 84.82 FPS on native COCO—5.44× the Faster R-CNN throughput—with only a 1.43-point AP difference. Across models, person AP fell by 26–32 percentage points when moving from COCO to KITTI.</p>
+<div class="metric-grid">
+<div class="metric">
+<b>0.5731</b>
+<span>best shared COCO AP</span>
+</div>
+<div class="metric">
+<b>0.3962</b>
+<span>best shared KITTI AP</span>
+</div>
+<div class="metric">
+<b>84.82 FPS</b>
+<span>YOLO11s on COCO</span>
+</div>
+</div>
+</section>
+<section class="section">
+<h2>Technical focus</h2>
+<p>COCO-style evaluation, annotation mapping, cross-dataset generalization, AP/AR metrics, inference speed, memory profiling, and quantitative failure analysis.</p>
+</section>
+<footer class="footer">
+<span>Jainish Patel · AI / ML research</span>
+<span>
+<a href="../index.html">Portfolio home</a>
+</span>
+</footer>
+</div>
+</body>
+</html>

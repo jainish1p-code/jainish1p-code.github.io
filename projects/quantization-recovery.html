@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quantization Recovery for Tool-Calling Reliability — Jainish Patel</title>
+<link rel="stylesheet" href="../project.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>.metric-grid.results{grid-template-columns:repeat(4,1fr)}@media(max-width:700px){.metric-grid.results{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+<a class="mark" href="../index.html">JP / 26</a>
+<a class="back" href="../index.html#work">← Back to work</a>
+</nav>
+<header class="hero">
+<div class="eyebrow">Project 02 · Efficient AI · Tool calling</div>
+<h1>Can quantization recovery preserve what agents need to do?</h1>
+<p class="lede">As language models become smaller and cheaper to run, quantization can damage their accuracy. This team project tests whether small LoRA adapters can recover not only general reasoning, but also the structured tool-calling behavior that agents depend on.</p>
+<div class="actions">
+<a class="button primary" href="https://github.com/hassaanmuzammil/quantization-recovery-tool-calling" target="_blank" rel="noreferrer">View team repository ↗</a>
+<a class="button" href="mailto:jainish1p@gmail.com">Ask me about my contribution</a>
+</div>
+</header>
+<section class="section">
+<h2>The idea in one minute</h2>
+<p>Quantization compresses model weights so a language model uses less memory and costs less to serve. The tradeoff is that compression can change how reliably the model reasons or produces structured outputs. Our team studies whether a lightweight recovery step can repair those capabilities.</p>
+<div class="visual">
+<div class="node">
+<small>Starting point</small>
+<strong>Full-precision model</strong>
+<small>Reference behavior</small>
+</div>
+<div class="arrow">→</div>
+<div class="node">
+<small>Compression</small>
+<strong>2-bit quantization</strong>
+<small>Lower memory and serving cost</small>
+</div>
+<div class="arrow">→</div>
+<div class="node">
+<small>Recovery</small>
+<strong>LoRA + knowledge distillation</strong>
+<small>Learn from the full-precision model</small>
+</div>
+</div>
+</section>
+<section class="section">
+<h2>What the team is testing</h2>
+<p>The central question is whether recovery generalizes from ordinary knowledge and reasoning benchmarks to tool calling: selecting the correct function, filling its arguments, and abstaining when no available function applies.</p>
+<div class="compare">
+<div class="plain">
+<h3>Model capability</h3>
+<p>Does recovery preserve general knowledge, reasoning, instruction following, and structured outputs after aggressive quantization?</p>
+<span class="tag">MMLU</span>
+<span class="tag">HellaSwag</span>
+<span class="tag">IFEval</span>
+</div>
+<div class="plain">
+<h3>Agent reliability</h3>
+<p>Does the model still select the right tool and produce valid arguments under a function-calling evaluation?</p>
+<span class="tag">BFCL</span>
+<span class="tag">Tool selection</span>
+<span class="tag">Argument validity</span>
+</div>
+</div>
+</section>
+<section class="section">
+<h2>Experimental design</h2>
+<p>We compare five Qwen3-4B-Instruct-2507 configurations: full precision, damaged quantized weights, a reproduction of the published recovery recipe, a tool-calling-focused recovery variant, and a labelled fine-tuning control. The evaluation also classifies failure types instead of hiding them inside one aggregate score.</p>
+<div class="metric-grid">
+<div class="metric">
+<b>5</b>
+<span>model configurations</span>
+</div>
+<div class="metric">
+<b>2-bit</b>
+<span>quantization target</span>
+</div>
+<div class="metric">
+<b>BFCL</b>
+<span>tool-calling evaluation</span>
+</div>
+</div>
+</section>
+<section class="section">
+<h2>Preliminary results</h2>
+<p>On Qwen3-4B-Instruct-2507, 2-bit quantization reduced BFCL live-simple tool-calling from 79.46% to 0%. General-text LoRA distillation recovered 13.57%; tool-calling data improved that to 22.48%. On MMLU, the same recovery setup restored accuracy from 48.48% to 62.43% versus 70.55% for the full-precision model.</p>
+<div class="metric-grid results">
+<div class="metric"><b>0 → 13.57%</b><span>BFCL recovery with OpenHermes KD</span></div>
+<div class="metric"><b>22.48%</b><span>BFCL with xLAM KD</span></div>
+<div class="metric"><b>48.48 → 62.43%</b><span>MMLU after recovery</span></div>
+<div class="metric"><b>2-bit</b><span>quantization target</span></div>
+</div>
+</section>
+<section class="section">
+<h2>My role</h2>
+<p>I am contributing as a team member on this project with Hassaan Muzammil and Parth Panchal. The repository contains the benchmarks, recovery experiments, evaluation scripts, documentation, and progress reports.</p>
+</section>
+<footer class="footer">
+<span>Jainish Patel · AI / ML research</span>
+<span>
+<a href="../index.html">Portfolio home</a>
+</span>
+</footer>
+</div>
+</body>
+</html>
